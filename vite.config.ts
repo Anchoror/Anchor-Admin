@@ -1,14 +1,19 @@
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import eslintPlugin from 'vite-plugin-eslint';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { fileURLToPath, URL } from 'url';
+
 import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
 	const env = loadEnv(mode, process.cwd());
+
 	return {
 		plugins: [
 			vue(),
@@ -20,6 +25,32 @@ export default defineConfig(({ command, mode }) => {
 			}),
 			eslintPlugin({
 				include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue'],
+			}),
+			AutoImport({
+				// 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+				// 这里除了引入 vue 以外还可以引入pinia、vue-router、vueuse等
+				imports: ['vue', 'vue-router'],
+				// 配置文件生成位置
+				dts: 'src/auto-import.d.ts',
+				eslintrc: {
+					// 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗
+					enabled: false,
+				},
+			}),
+			Components({
+				// dirs 指定组件所在位置，默认为 src/components
+				// 可以让我们使用自己定义组件的时候免去 import 的麻烦
+				dirs: ['src/components/'],
+				// 配置需要将哪些后缀类型的文件进行自动按需引入
+				extensions: ['vue'],
+				// 配置文件生成位置
+				dts: 'src/components.d.ts',
+			}),
+			createSvgIconsPlugin({
+				// 指定需要缓存的图标文件夹
+				iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+				// 指定symbolId格式
+				symbolId: 'icon-[dir]-[name]',
 			}),
 		],
 		base: env.VITE_PUBLIC_PATH,
