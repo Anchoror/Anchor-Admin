@@ -70,13 +70,19 @@
 import { formatMoney } from '@/utils/common';
 // import dayjs from 'dayjs';
 
+enum statisticType {
+	money = 'money',
+	count = 'count',
+	percentage = 'percentage',
+}
+
 /* chart1 */
 const chart1 = ref([
 	{
 		title: '总销售额',
 		icon: 'dash-pay',
-		type: 'money',
-		value: '126560',
+		type: statisticType.money,
+		value: 126560,
 		text: [`日均销售额￥${formatMoney(12423)}`],
 		chart: {
 			toolbox: {
@@ -162,8 +168,8 @@ const chart1 = ref([
 	{
 		title: '访问量',
 		icon: 'dash-pointer',
-		type: 'count',
-		value: '8463',
+		type: statisticType.count,
+		value: 8463,
 		text: [`日访问量 ${formatMoney(1423)}`, `周访问量 ${formatMoney(9324)}`],
 		chart: {
 			toolbox: {
@@ -236,7 +242,7 @@ const chart1 = ref([
 	{
 		title: '支付笔数',
 		icon: 'dash-message',
-		type: 'count',
+		type: statisticType.count,
 		value: 13476,
 		text: [`日支付笔数 ${formatMoney(3397)}`],
 		chart: {
@@ -289,8 +295,8 @@ const chart1 = ref([
 	{
 		title: '线上购物转化率',
 		icon: 'dash-online',
-		type: 'percentage',
-		value: '78',
+		type: statisticType.percentage,
+		value: 78,
 		text: ['日环比 24%', '周环比 46%'],
 		chart: {
 			grid: {

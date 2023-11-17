@@ -11,15 +11,11 @@
 <script setup lang="ts" name="ancStatistic">
 import { CountUp } from 'countup.js';
 import type { CountUpOptions } from 'countup.js';
-enum valueType {
-	money = 'money',
-	count = 'count',
-	percentage = 'percentage',
-}
+
 interface Props {
 	title?: string;
-	value: number | string;
-	type: valueType;
+	value: number;
+	type: string;
 }
 const props = withDefaults(defineProps<Props>(), {
 	title: '',
