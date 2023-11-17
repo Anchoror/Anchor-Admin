@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import eslintPlugin from 'vite-plugin-eslint';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { viteMockServe } from 'vite-plugin-mock';
 import { fileURLToPath, URL } from 'url';
 
 import path from 'path';
@@ -52,6 +53,16 @@ export default defineConfig(({ command, mode }) => {
 				// 指定symbolId格式
 				symbolId: 'icon-[dir]-[name]',
 			}),
+			viteMockServe({
+				mockPath: './src/mock/', // 目录位置
+				localEnabled: command === 'serve',
+				prodEnabled: command !== 'serve' && true,
+				// 这样可以控制关闭mock的时候不让mock打包到最终代码内
+				injectCode: `
+					import { setupProdMockServer } from '../src/mock/index';
+					setupProdMockServer();
+				`,
+			}),
 		],
 		base: env.VITE_PUBLIC_PATH,
 		resolve: {
@@ -60,6 +71,8 @@ export default defineConfig(({ command, mode }) => {
 				'~': fileURLToPath(new URL('./', import.meta.url)),
 				'@': fileURLToPath(new URL('./src', import.meta.url)),
 			},
+
+			extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
 		},
 		// 引入全局的scss变量
 		css: {
@@ -67,10 +80,14 @@ export default defineConfig(({ command, mode }) => {
 				scss: {
 					additionalData: `@import "@/styles/var.scss";`,
 				},
+				less: {
+					javascriptEnabled: true,
+				},
 			},
 		},
 		server: {
 			open: true,
+			port: 80,
 			proxy: {
 				'/api': {
 					target: env.VITE_APP_BASE_URL, //后台服务器地址

@@ -1,380 +1,175 @@
 <template>
-	<div class="app-container">
-		<div class="content">
-			<div class="left">
-				<img :src="loginImg2" class="people p-animtion" alt="people" />
-				<img :src="loginImg1" class="sphere s-animtion" alt="sphere" />
+	<div class="login">
+		<div class="login-box">
+			<div class="login-left">
+				<img class="login-img" :src="loginImg" />
 			</div>
-			<div class="right">
-				<div class="form-wrappepr">
-					<h1>Anchor Admin Pro</h1>
-					<input type="text" class="inputs user" placeholder="Enter Email Or Number" />
-					<input type="password" class="inputs pwd" placeholder="Password" />
-					<span class="tips">Recovery Password</span>
-					<button>Sigin In</button>
-					<div class="other-login">
-						<div class="divider">
-							<span class="line"></span>
-							<span class="divider-text">or continue with</span>
-							<span class="line"></span>
-						</div>
-						<div class="other-login-wrapper">
-							<div class="other-login-item">
-								<img src="./asset/QQ.png" alt="QQ" />
-							</div>
-							<div class="other-login-item">
-								<img src="./asset/WeChat.png" alt="WeChat" />
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="login-right">
+				<a-form ref="formRef" :model="formState" name="normal_login" class="login-form" :rules="rules">
+					<h3 class="login-form-title"><span>Admin Pro</span></h3>
+					<a-form-item name="username">
+						<a-input v-model:value="formState.username" placeholder="账号">
+							<template #prefix>
+								<UserOutlined />
+							</template>
+						</a-input>
+					</a-form-item>
+
+					<a-form-item name="password">
+						<a-input-password v-model:value="formState.password" placeholder="密码">
+							<template #prefix>
+								<LockOutlined />
+							</template>
+						</a-input-password>
+					</a-form-item>
+
+					<a-form-item>
+						<a-row justify="space-between" align="center" class="w-100">
+							<a-form-item name="remember" no-style>
+								<a-checkbox v-model:checked="formState.remember">记住密码</a-checkbox>
+							</a-form-item>
+							<a href="">忘记密码</a>
+						</a-row>
+					</a-form-item>
+
+					<a-form-item>
+						<a-space direction="vertical" class="w-100">
+							<a-button :disabled="disabled" type="primary" block @click="handleLogin"> 登录 </a-button>
+							<a-button :disabled="disabled" type="info" block> 注册 </a-button>
+						</a-space>
+					</a-form-item>
+				</a-form>
 			</div>
 		</div>
+
+		<div class="login-footer">
+			<span>Copyright © 2018-2023 anchor.cn All Rights Reserved.</span>
+		</div>
+		<LoginBg></LoginBg>
 	</div>
 </template>
 
-<script setup name="login" lang="ts">
-import loginImg1 from '@/assets/images/login-img1.png';
-import loginImg2 from '@/assets/images/login-img2.png';
+<script lang="ts" setup name="login">
+import LoginBg from './loginBg/index.vue';
+import loginImg from '@/assets/images/login-img.png';
+import type { Rule } from 'ant-design-vue/es/form';
+import { useUserStore } from '@/stores';
+import { message } from 'ant-design-vue';
+
+// 类型声明
+interface loginForm {
+	username: string;
+	password: string;
+	remember: boolean;
+}
+const router = useRouter();
+const formRef = ref();
+const formState = ref<loginForm>({
+	username: 'admin',
+	password: '123456',
+	remember: false,
+});
+const disabled = ref<boolean>(false);
+
+const handleLogin = () => {
+	formRef.value
+		.validate()
+		.then(() => {
+			// console.log('yes');
+			useUserStore()
+				.login({
+					username: formState.value.username,
+					password: formState.value.password,
+				})
+				.then((res) => {
+					console.log('res', res);
+					router.push({
+						path: '/',
+					});
+					message.success('登录成功');
+				});
+		})
+		.catch((error: any) => {
+			console.log('error', error);
+		});
+};
+
+const rules: Record<string, Rule[]> = {
+	username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+	password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+};
 </script>
 
 <style lang="scss" scoped>
-:root {
-	font-size: 15px;
-}
-
-.app-container {
-	margin: 0;
-	min-height: 100vh;
-	background-color: #abc6f8;
-	background-image: radial-gradient(closest-side, rgb(255, 255, 255), rgba(235, 105, 78, 0)),
-		radial-gradient(closest-side, rgb(250, 203, 203), rgba(243, 11, 164, 0)),
-		radial-gradient(closest-side, rgb(237, 252, 202), rgba(254, 234, 131, 0)),
-		radial-gradient(closest-side, rgb(197, 248, 241), rgba(170, 142, 245, 0)),
-		radial-gradient(closest-side, rgb(206, 200, 243), rgba(248, 192, 147, 0));
-	background-size:
-		130vmax 130vmax,
-		80vmax 80vmax,
-		90vmax 90vmax,
-		110vmax 110vmax,
-		90vmax 90vmax;
-	background-position:
-		-80vmax -80vmax,
-		60vmax -30vmax,
-		10vmax 10vmax,
-		-30vmax -10vmax,
-		50vmax 50vmax;
-	background-repeat: no-repeat;
-	animation: 10s movement linear infinite;
-}
-
-body::after {
-	content: '';
-	display: block;
-	position: fixed;
-	width: 100%;
+.login {
 	height: 100%;
-	top: 0;
-	left: 0;
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-}
-
-.content {
-	width: 90vw;
-	height: 90vh;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 1;
-	border-radius: 30px;
-	background: rgba(255, 255, 255, 0.6);
-	border: 1px solid rgba(255, 255, 255, 0.18);
 	display: flex;
-	// overflow: hidden;
-	.left {
-		flex: 1;
-		position: relative;
-		.sphere {
-			position: absolute;
-			left: 30%;
-			width: 90%;
-			z-index: 1;
-			animation: sphereAnimation 2s;
-			animation-fill-mode: forwards;
-			animation-timing-function: ease;
-		}
-		.people {
-			position: absolute;
-			left: -50%;
-			top: 20%;
-			width: 70%;
-			// height: 100px;
-			z-index: 2;
-		}
-		.p-animtion {
-			animation: peopleAnimation 2s;
-			animation-fill-mode: forwards;
-			animation-timing-function: ease;
-		}
-		.p-other-animtion {
-			animation-name: pOtherAnimation; // 动画名称
-			animation-direction: alternate; // 动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。
-			animation-timing-function: linear; // 动画执行方式，linear：匀速；ease：先慢再快后慢；ease-in：由慢速开始；ease-out：由慢速结束；ease-in-out：由慢速开始和结束；
-			animation-iteration-count: infinite; //  动画播放次数，infinite：一直播放
-			animation-duration: 3s; // 动画完成时间
-		}
-		.s-animtion {
-			animation: sphereAnimation 2s;
-			animation-fill-mode: forwards;
-			animation-timing-function: ease;
-		}
-		.s-other-animtion {
-			animation-name: sOtherAnimation; // 动画名称
-			animation-direction: alternate; // 动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。
-			animation-timing-function: linear; // 动画执行方式，linear：匀速；ease：先慢再快后慢；ease-in：由慢速开始；ease-out：由慢速结束；ease-in-out：由慢速开始和结束；
-			animation-iteration-count: infinite; //  动画播放次数，infinite：一直播放
-			animation-duration: 3s; // 动画完成时间
-		}
+	justify-content: center;
+	align-items: center;
+	&-box {
+		width: 720px;
+		height: 380px;
+		display: flex;
+		z-index: 999;
+		box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.08);
+		border-radius: $radius-box;
 	}
-	.right {
-		flex: 1;
-		position: relative;
-		z-index: 12;
-		.top {
-			width: 80%;
-			margin-left: 38px;
-			color: rgb(51, 52, 124);
-			font-size: 20px;
-			font-weight: 600;
-			font-family: 'Century Gothic', Times, serif;
-			position: absolute;
-			left: 50%;
-			top: 5%;
-			transform: translate(-50%, 0);
-			.top-item {
-				float: left;
-				width: 150px;
-				height: 40px;
-				line-height: 40px;
-				text-align: center;
-				margin-right: 10px;
-				transition: 0.5s;
-				&:hover {
-					border: 0;
-					background-color: #fff;
-					border-radius: 50px;
-					cursor: pointer;
-					box-shadow: -20px 10px 32px 1px rgba(182, 183, 185, 0.37);
-				}
-			}
-		}
-		.form-wrappepr {
-			width: 60%;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			text-align: right;
-			h1 {
-				float: left;
-				font-family: 'Century Gothic', Times, serif;
-				margin: 30px 0;
-				// color: rgb(68,96,241);
-			}
-			.inputs {
-				display: block;
-				width: 100%;
-				height: 70px;
-				margin: 30px 0;
-				border-radius: 10px;
-				border: 0;
-				background-color: rgb(210 223 237);
-				color: rgb(80, 82, 84);
-				font-family: 'Century Gothic', Times, serif;
-				outline: none;
-				padding: 20px;
-				box-sizing: border-box;
-				font-size: 20px;
-			}
-			.tips {
-				display: block;
-				margin-top: -15px;
-				color: rgb(160, 170, 182);
-				cursor: pointer;
-			}
-			button {
-				width: 100%;
-				height: 50px;
-				background-color: rgb(68, 96, 241);
-				border-radius: 10px;
-				font-size: 15px;
-				color: #fff;
-				border: 0;
-				font-weight: 600;
-				margin: 30px 0;
-				cursor: pointer;
-				box-shadow: -20px 28px 42px 0 rgba(62, 145, 255, 0.37);
-				font-family: 'Century Gothic', Times, serif;
-			}
-			.other-login {
-				.divider {
-					width: 100%;
-					margin: 20px 0;
-					text-align: center;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					.line {
-						display: inline-block;
-						max-width: 35%;
-						width: 35%;
-						flex: 1;
-						height: 1px;
-						background-color: rgb(162, 172, 185);
-					}
-					.divider-text {
-						vertical-align: middle;
-						margin: 0px 20px;
-						// line-height: 0px;
-						display: inline-block;
-						width: 150px;
-						color: rgb(162, 172, 185);
-						white-space: normal;
-					}
-				}
-				.other-login-wrapper {
-					width: 100%;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					.other-login-item {
-						width: 70px;
-						// border: 1px solid rgb(162, 172, 185);
-						padding: 10px;
-						text-align: center;
-						border-radius: 10px;
-						cursor: pointer;
-						font-weight: 600;
-						color: rgb(51, 49, 116);
-						margin: 0 10px;
-						transition: 0.4s;
-						img {
-							width: 40px;
-							height: 40px;
-							vertical-align: middle;
-						}
-						span {
-							vertical-align: middle;
-						}
-
-						&:hover {
-							width: 80px;
-							height: 50%;
-							background-color: #fff;
-							border: 0;
-							box-shadow: -20px 10px 32px 1px rgba(182, 183, 185, 0.37);
-						}
-					}
-				}
-			}
-		}
+	&-footer {
+		position: absolute;
+		top: auto;
+		bottom: 12px;
+		color: $color-text-5;
+		font-size: 12px;
+		z-index: 10;
 	}
 }
-
-@keyframes movement {
-	0%,
-	100% {
-		background-size:
-			130vmax 130vmax,
-			80vmax 80vmax,
-			90vmax 90vmax,
-			110vmax 110vmax,
-			90vmax 90vmax;
-		background-position:
-			-80vmax -80vmax,
-			60vmax -30vmax,
-			10vmax 10vmax,
-			-30vmax -10vmax,
-			50vmax 50vmax;
-	}
-	25% {
-		background-size:
-			100vmax 100vmax,
-			90vmax 90vmax,
-			100vmax 100vmax,
-			90vmax 90vmax,
-			60vmax 60vmax;
-		background-position:
-			-60vmax -90vmax,
-			50vmax -40vmax,
-			0vmax -20vmax,
-			-40vmax -20vmax,
-			40vmax 60vmax;
-	}
-	50% {
-		background-size:
-			80vmax 80vmax,
-			110vmax 110vmax,
-			80vmax 80vmax,
-			60vmax 60vmax,
-			80vmax 80vmax;
-		background-position:
-			-50vmax -70vmax,
-			40vmax -30vmax,
-			10vmax 0vmax,
-			20vmax 10vmax,
-			30vmax 70vmax;
-	}
-	75% {
-		background-size:
-			90vmax 90vmax,
-			90vmax 90vmax,
-			100vmax 100vmax,
-			90vmax 90vmax,
-			70vmax 70vmax;
-		background-position:
-			-50vmax -40vmax,
-			50vmax -30vmax,
-			20vmax 0vmax,
-			-10vmax 10vmax,
-			40vmax 60vmax;
+.login-left {
+	flex: 1;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(60deg, $color-theme, $color-theme-sub1);
+	border-radius: $radius-box 0 0 $radius-box;
+	.login-img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		transition: all 0.3s;
+		object-fit: cover;
 	}
 }
-@keyframes sphereAnimation {
-	0% {
-		width: 10%;
-	}
-	100% {
-		width: 90%;
-		transform: translate(-30%, 5%);
-	}
-}
-@keyframes peopleAnimation {
-	0% {
-		width: 40%;
-	}
-	100% {
-		width: 70%;
-		transform: translate(90%, -10%);
-	}
-}
-
-@keyframes pOtherAnimation {
-	0% {
-		transform: translate(90%, -10%);
-	}
-	100% {
-		transform: translate(90%, -15%);
-	}
-}
-@keyframes sOtherAnimation {
-	0% {
-		transform: translate(-30%, 5%);
-	}
-	100% {
-		transform: translate(-30%, 10%);
+.login-right {
+	width: 270px;
+	height: 100%;
+	background: $color-bg-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 30px;
+	box-sizing: border-box;
+	border-radius: 0 $radius-box $radius-box 0;
+	.login-form-title {
+		color: $color-text-1;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 32px;
+		margin-bottom: 20px;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.logo {
+			width: 32px;
+			height: 32px;
+			margin-right: 6px;
+		}
 	}
 }
 </style>

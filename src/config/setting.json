@@ -1,0 +1,9 @@
+{
+	"theme": "light",
+	"themeColor": "#165DFF",
+	"tab": true,
+	"tabMode": "card",
+	"animate": true,
+	"animateMode": "zoom-fade",
+	"menuCollapse": false
+}

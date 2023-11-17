@@ -1,0 +1,53 @@
+.ant-layout {
+    background-color: $color-bg;
+    .ant-layout-sider-collapsed {
+        .ant-menu-title-content {
+            display: none;
+        }
+        .ant-menu-submenu-arrow {
+            display: none;
+            position: absolute;
+            right: 3px;
+            top: auto;
+            bottom: 10px;
+            font-size: 10px;
+        }
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .ant-menu-item-icon {
+                font-size: 32px;
+                width: 28px !important;
+                height: 28px !important;
+            }
+        }
+    }
+}
+
+.ant-menu-submenu-popup {
+    .ant-menu-title-content {
+        color: $color-text-2;
+    }
+    .ant-menu-item-selected {
+        .ant-menu-title-content {
+            color: $color-theme;
+        }
+    }
+    .ant-menu-item {
+        display: flex !important;
+        align-items: center;
+    }
+}
+
+.ant-statistic-content {
+    .ant-statistic-content-prefix {
+        margin-inline-end: 10px !important;
+    }
+    .ant-statistic-content-value {
+        vertical-align: middle;
+        // margin-left: 10px;
+    }
+}

@@ -3,8 +3,6 @@
 	<h1>{{ phone }}</h1>
 
 	<StepBackwardOutlined />
-
-	<svg-icon name="vue" />
 </template>
 
 <script lang="ts" setup name="home">

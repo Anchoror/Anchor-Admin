@@ -1,1 +1,30 @@
-$primaryColor: #316c72;
+body {
+    --margin: 14px;
+    --padding: 16px;
+}
+
+// 颜色变量
+$color-theme: rgb(22, 93, 255);
+$color-theme-sub1: rgb(148, 191, 255);
+$color-theme-sub2: rgb(232, 243, 255);
+$color-primary: rgb(22, 93, 255);
+$color-success: rgb(0, 180, 42);
+$color-warning: rgb(255, 125, 0);
+$color-danger: rgb(245, 63, 63);
+$color-info: rgb(247, 186, 30);
+
+$color-text-1: #121314; // 标题、重点文本字体颜色
+$color-text-2: #5c5c5c; // 文本-全局默认字体颜色
+$color-text-3: #909399; // 二级文本颜色
+$color-text-4: #c2c2c2; // 辅助文本颜色1
+$color-text-5: #ffffff; // 辅助文本颜色2
+
+$color-border: rgb(229, 230, 235); // 边框颜色、分割线颜色
+$color-bg: #f5f7fd; // 背景颜色
+$color-bg-box: #ffffff;
+
+$margin: var(--margin);
+$padding: var(--padding);
+
+$radius-box: 8px;
+$radius-box-mini: 2px;

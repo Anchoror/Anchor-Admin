@@ -7,8 +7,16 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AncChart: typeof import('./components/AncChart/index.vue')['default']
+    AncStatistic: typeof import('./components/AncStatistic/index.vue')['default']
+    Breadcrumb: typeof import('./components/Breadcrumb/index.vue')['default']
+    ChartBox: typeof import('./components/ChartBox/index.vue')['default']
+    Logo: typeof import('./components/logo/index.vue')['default']
+    Logo1: typeof import('./components/logo/logo1.vue')['default']
+    ParentView: typeof import('./components/ParentView/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StatisticBox: typeof import('./components/StatisticBox/index.vue')['default']
     SvgIcon: typeof import('./components/SvgIcon/index.vue')['default']
   }
 }

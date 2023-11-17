@@ -27,7 +27,7 @@ const StatusCodeMessage: ICodeMessage = {
 
 // 创建axios
 const http: AxiosInstance = axios.create({
-	baseURL: import.meta.env.VITE_API_BASE_URL,
+	// baseURL: import.meta.env.VITE_API_BASE_URL, //mock环境下，关闭baseUrl
 	timeout: 12000,
 });
 

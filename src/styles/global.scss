@@ -1,0 +1,33 @@
+.page-container {
+    background-color: $color-bg-box;
+    border-radius: $radius-box-mini;
+}
+
+.anc-card {
+    background-color: $color-bg-box;
+    border-radius: $radius-box-mini;
+    padding: 24px 30px;
+    width: 100%;
+}
+
+.anc-tabs {
+    .ant-tabs-nav {
+        background-color: $color-bg-box;
+        border-radius: $radius-box-mini;
+        padding: 24px 30px 16px;
+        margin-bottom: 10px;
+        .ant-tabs-tab {
+            padding: 0 0 8px;
+        }
+    }
+    .ant-tabs-content-holder {
+        background-color: $color-bg-box;
+        border-radius: $radius-box-mini;
+        padding: 24px 30px;
+    }
+}
+
+.more-btn {
+    padding: 0;
+    height: fit-content;
+}
