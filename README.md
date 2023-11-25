@@ -1,8 +1,8 @@
-<p align="center">
+<div align="center">
   <a href="https://github.com/Anchoror/Anchor-Admin">
-    <img alt="Anchor Admin Logo" width="200" style="border-radius: 15px" src="./public/logo2.svg">
+    <img alt="Anchor Admin Logo" width="200"  src="./public/logo2.svg">
   </a>
-</p>
+</div>
 <h3 align="center">Anchor Admin</h3>
 <div align="center">
 
@@ -21,7 +21,7 @@
 
 `目前这个项目还没有彻底完成，如果不偷懒的话，应该还要一段时间。。。`
 
->在做了很多后台系统项目后，我希望可以开发出一份属于自己的开源框架，具备一定的个人风格的中后台系统模板，也是方便自己日后的前端开发。这个项目应该会有Vue和React两个版本（但我开发不是很快，慢慢来了😜），也算是自己开发经验的总结与沉淀。
+> 在做了很多后台系统项目后，我希望可以开发出一份属于自己的开源框架，具备一定的个人风格的中后台系统模板，也是方便自己日后的前端开发。这个项目应该会有Vue和React两个版本（但我开发不是很快，慢慢来了😜），也算是自己开发经验的总结与沉淀。
 
 ### 功能
 
@@ -41,7 +41,6 @@
 <!-- [https://template.isme.top](https://template.isme.top)
 
 [https://base.isme.top](https://base.isme.top) -->
-
 
 ### 快速开始
 
@@ -96,7 +95,8 @@ pnpm lint:fix
 pnpm preview
 
 ```
-<!-- 
+
+<!--
 ### 目录说明
 
 ```
@@ -187,4 +187,3 @@ Vue Naive Admin
 |-- unocss.config.js                    // unocss配置
 |-- vite.config.js                      // vite配置
 ``` -->
-
