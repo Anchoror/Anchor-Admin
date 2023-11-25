@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/Anchoror/Anchor-Admin">
-    <img alt="Anchor Admin Logo" width="200" style='border-radius:30px' src="./public/logo2.svg">
+    <img alt="Anchor Admin Logo" width="200" style="border-radius: 15px" src="./public/logo2.svg">
   </a>
-</p>`
+</p>
 <h3 align="center">Anchor Admin</h3>
 <div align="center">
 
