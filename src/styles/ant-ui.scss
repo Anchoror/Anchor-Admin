@@ -51,3 +51,14 @@
         // margin-left: 10px;
     }
 }
+
+.ant-segmented {
+    margin-right: 30px;
+    .ant-segmented-item-selected {
+        color: #fff;
+        background-color: $color-theme;
+    }
+    .ant-segmented-thumb {
+        background-color: $color-theme;
+    }
+}

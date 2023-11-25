@@ -1,14 +1,7 @@
 <template>
-	<h1>首页{{ name }}</h1>
-	<h1>{{ phone }}</h1>
-
-	<StepBackwardOutlined />
+	<h1>Home页</h1>
 </template>
 
 <script lang="ts" setup name="home">
-import { useUserStore } from '@/stores';
-
-const name = useUserStore().name;
-
-const phone = ref('2323');
+// import { useUserStore } from '@/stores';
 </script>

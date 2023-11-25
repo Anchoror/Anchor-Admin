@@ -12,7 +12,9 @@ specifiers:
   ant-design-vue: ^4.0.3
   axios: ^1.5.1
   countup.js: ^2.8.0
+  dayjs: ^1.11.10
   echarts: ^5.4.3
+  echarts-wordcloud: 2.0.0
   eslint: ^8.51.0
   eslint-config-prettier: ^9.0.0
   eslint-plugin-prettier: ^5.0.1
@@ -54,7 +56,9 @@ dependencies:
   ant-design-vue: 4.0.3_vue@3.3.4
   axios: 1.5.1
   countup.js: 2.8.0
+  dayjs: 1.11.10
   echarts: 5.4.3
+  echarts-wordcloud: 2.0.0_echarts@5.4.3
   pinia: 2.1.7_typescript@5.2.2+vue@3.3.4
   vue: 3.3.4
   vue-countup-v2: 4.0.0_countup.js@2.8.0+vue@3.3.4
@@ -1855,6 +1859,14 @@ packages:
       domelementtype: 2.3.0
       domhandler: 5.0.3
     dev: true
+
+  /echarts-wordcloud/2.0.0_echarts@5.4.3:
+    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==}
+    peerDependencies:
+      echarts: ^5.0.1
+    dependencies:
+      echarts: 5.4.3
+    dev: false
 
   /echarts/5.4.3:
     resolution: {integrity: sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==}

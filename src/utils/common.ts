@@ -1,5 +1,5 @@
 import { isExternal } from '@/utils/validate';
-import { mapTree } from 'xe-utils';
+import { mapTree, values } from 'xe-utils';
 
 /** @desc 千分位格式化 */
 export function formatMoney(num: string | number) {
@@ -8,7 +8,7 @@ export function formatMoney(num: string | number) {
 }
 
 /**
- * @description 动态路由 path 转 name
+ * @desc 动态路由 path 转 name
  * @demo /system => System
  * @demo /system/menu => SystemMenu
  */

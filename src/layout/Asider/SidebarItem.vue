@@ -11,6 +11,7 @@
 							:name="onlyOneChild.meta.svgIcon || item?.meta?.svgIcon"
 							:size="24"
 						></svg-icon>
+						<MenuOutlined v-else />
 					</template>
 					<span>{{ onlyOneChild.meta?.title }}</span>
 				</a-menu-item>
@@ -20,6 +21,7 @@
 		<a-sub-menu v-else :key="item.path">
 			<template #icon>
 				<svg-icon v-if="item?.meta?.svgIcon" :name="item?.meta?.svgIcon" :size="24"></svg-icon>
+				<MenuOutlined v-else />
 			</template>
 			<template v-if="item.meta" #title>
 				<span>{{ item?.meta?.title }}</span>

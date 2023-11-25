@@ -70,9 +70,9 @@
 										</template>
 										<span>个人中心</span>
 									</a-menu-item>
-									<a-menu-item>
+									<a-menu-item @click="handleGithub">
 										<template #icon>
-											<svg-icon name="menu-leaf"></svg-icon>
+											<svg-icon name="menu-github"></svg-icon>
 										</template>
 										<span>项目地址</span>
 									</a-menu-item>
@@ -106,11 +106,14 @@ const userStore = useUserStore();
 
 // 控制下方向箭头的旋转
 const hasHover = ref<boolean>(false);
-const handleHover = () => {
+const handleHover = (): void => {
 	hasHover.value = !hasHover.value;
 };
 
-const handleLogout = () => {
+const handleGithub = (): void => {
+	window.open('https://github.com/Anchoror/Anchor-Admin', '_blank');
+};
+const handleLogout = (): void => {
 	Modal.confirm({
 		title: '提示',
 		content: h('p', '确定要退出登录？'),
